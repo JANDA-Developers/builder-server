@@ -65,7 +65,7 @@
         "build": "tsc",
         "start": "cd dist && node index.js",
         "watch": "ts-node-dev --respawn --no-notify --transpile-only src/index.ts",
-        "pm2": "NODE_ENV=production pm2 start index.ts --watch"
+        "pm2": "pm2 start src/index.ts --watch"
     },
     "dependencies": {
         "@typegoose/typegoose": "^7.4.1",
@@ -82,6 +82,7 @@
         "express-session": "^1.17.1",
         "formidable": "^1.2.2",
         "generate-password": "^1.4.2",
+        "global": "^4.4.0",
         "graphql": "^15.3.0",
         "graphql-fields": "^2.0.3",
         "graphql-type-json": "^0.3.2",
@@ -96,6 +97,7 @@
         "morgan": "^1.9.1",
         "passport": "^0.4.1",
         "passport-jwt": "^4.0.0",
+        "pm2": "^4.5.1",
         "reflect-metadata": "^0.1.13",
         "type-graphql": "^1.1.0",
         "typedi": "^0.8.0",

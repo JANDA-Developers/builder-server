@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Arg, Ctx, Authorized } from "type-graphql";
+import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
 import { GenerateArrayReturnResponse } from "../../helpers/BaseResponse.type";
 import { File, FileModel } from "../../models/File/File.type";
 import { mongoose } from "@typegoose/typegoose";
