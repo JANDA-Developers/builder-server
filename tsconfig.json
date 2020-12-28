@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "module": "commonjs",
+        "target": "es2018",
+        "lib": ["es2018", "esnext.asynciterable"],
+        "sourceMap": true,
+        "allowJs": true,
+        "moduleResolution": "node",
+        "outDir": "dist",
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitAny": false,
+        "strictNullChecks": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "noUnusedLocals": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+    },
+    "include": ["src/**/*", "../client/src/utils/omits.ts"],
+    "exclude": [
+        "node_modules",
+        "jest",
+    ]
+}
+
+
