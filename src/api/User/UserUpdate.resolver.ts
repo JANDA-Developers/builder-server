@@ -1,4 +1,4 @@
-import { DocumentType, mongoose } from "@typegoose/typegoose";
+import { mongoose } from "@typegoose/typegoose";
 import {
     Resolver,
     Mutation,
@@ -12,7 +12,6 @@ import { GenerateResponse } from "../../helpers/BaseResponse.type";
 import { errorGenForUnexist, validateClass } from "../../helpers/errorHandling";
 import { User, UserModel, UserRole } from "../../models/User/User.model";
 import { ALLOW_MEMBER } from "../../types/const";
-import { UserError } from "../Error/shared/Error.type";
 
 const UserUpdateResponse = GenerateResponse(User, "UserUpdate");
 type UserUpdateResponse = InstanceType<typeof UserUpdateResponse>;
