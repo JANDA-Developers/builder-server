@@ -34,7 +34,7 @@ export class WebPageCreateInput {
     public title: string;
 
     @Field(() => [String])
-    public keywards: string[];
+    public keyWards: string[];
 
     @Field(() => WebPageType)
     public type: WebPageType;

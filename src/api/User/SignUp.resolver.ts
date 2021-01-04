@@ -44,7 +44,6 @@ export class SignUpResolver {
             const isDuplidated = await UserModel.findOne(
                 {
                     email: input.email,
-                    role: UserRole.UNCONFIRMED,
                 },
                 { _id: 1 }
             );

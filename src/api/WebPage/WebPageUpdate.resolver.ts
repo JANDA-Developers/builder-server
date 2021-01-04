@@ -33,7 +33,7 @@ export class WebPageUpdateInput {
     public title: string;
 
     @Field(() => [String], { nullable: true })
-    public keywards: string[];
+    public keyWards: string[];
 
     @Field(() => WebPageType, { nullable: true })
     public type: WebPageType;

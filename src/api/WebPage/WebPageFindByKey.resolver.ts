@@ -20,6 +20,7 @@ export class WebPageFindByKeyResolver {
             const webPage = await WebPageModel.findOne({
                 key,
             });
+            if (!webPage) throw Error(`Webpage is not found with key ${key}`);
             if (webPage !== null && webPage !== undefined) {
                 response.setData(webPage);
                 await session.commitTransaction();
@@ -33,7 +34,7 @@ export class WebPageFindByKeyResolver {
             });
         } finally {
             session.endSession();
-            return response;
         }
+        return response;
     }
 }

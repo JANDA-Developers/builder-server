@@ -74,10 +74,9 @@ export const OffsetPaginatedData = <TItem>(TItemClass: ClassType<TItem>) => {
                     .populate(populations)
                     .skip(pageIndex * pageItemCount)
                     .sort(toMongoSort(sort))
-                    .populate(["trash", "trash2"])
-                    .populate(["trash2", "trash3"])
                     .exec(),
             ]);
+
             this.items = items;
             this.pageInfo = new OffsetPagingInfo({
                 page: pageIndex,

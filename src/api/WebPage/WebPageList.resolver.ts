@@ -10,7 +10,6 @@ import { Resolver, Query, Ctx, Arg, Authorized, Info } from "type-graphql";
 import { Context } from "../../types/types";
 import { UserRole } from "../../models/User/User.model";
 import { ALLOW_ALL } from "../../types/const";
-const graphqlFields = require("graphql-fields");
 
 export const WebPageFilterType = generateFilterType(WebPage);
 export const WebPageSortType = generateSortType(WebPage);
@@ -32,9 +31,6 @@ export class WebPageListResolver {
         @Arg("sort", WebPageSortType, { nullable: true })
         sort?: string[]
     ) {
-        console.log("info");
-        console.log(graphqlFields(info));
-
         const user = context.user;
         if (!user) {
             throw errorGenForUnexist("User");

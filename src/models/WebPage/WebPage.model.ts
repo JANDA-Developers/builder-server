@@ -19,8 +19,8 @@ export enum Langs {
 }
 
 export enum WebPageType {
-    HOUSE_MANUAL = "HOUSE_MANUAL",
-    MY_PROFILE = "MY_PROFILE",
+    PERSONAL = "PERSONAL",
+    BUSI = "BUSI",
 }
 
 @ObjectType({
