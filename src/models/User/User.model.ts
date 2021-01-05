@@ -39,6 +39,10 @@ export class User extends CollectionDataInterface {
     @Field(() => Boolean)
     isVerified: boolean;
 
+    @Field()
+    @prop({ default: 3 })
+    pageLimit: number;
+
     @Field(() => [WebPage], { nullable: true })
     async webpages() {
         return WebPageModel.find({ owner: this._id });

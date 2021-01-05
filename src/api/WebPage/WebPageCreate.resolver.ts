@@ -21,6 +21,7 @@ import { getMongoInstance } from "../../utils/modelFunction";
 import { Context } from "../../types/types";
 import { GraphQLJSONObject } from "graphql-type-json";
 import { ALLOW_ALL } from "../../types/const";
+import { UserError } from "../Error/shared/Error.type";
 
 const WebPageCreateResponse = GenerateResponse(WebPage, "WebPageCreate");
 type WebPageCreateResponse = InstanceType<typeof WebPageCreateResponse>;
@@ -64,6 +65,16 @@ export class WebPageCreateResolver {
             const user = context.user;
             if (!user) {
                 throw errorGenForUnexist("User");
+            }
+
+            // 갯수제한 초과 검사
+
+            const count = user.webpages.length;
+            if (count === user.pageLimit) {
+                throw new UserError(
+                    `해당 유저는 페이지를 이미 ${count}개 가지고 있습니다.`,
+                    "LIMIT_BLOCKED"
+                );
             }
 
             const webpage = new WebPage(input);

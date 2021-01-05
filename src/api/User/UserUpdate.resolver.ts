@@ -17,17 +17,20 @@ const UserUpdateResponse = GenerateResponse(User, "UserUpdate");
 type UserUpdateResponse = InstanceType<typeof UserUpdateResponse>;
 @InputType()
 export class UserUpdateInput {
-    @Field(() => String)
+    @Field(() => String, { nullable: true })
     name: string;
 
-    @Field(() => String)
+    @Field(() => String, { nullable: true })
     email: string;
 
-    @Field(() => String)
+    @Field(() => String, { nullable: true })
     phoneNumber: string;
 
     @Field(() => String, { nullable: true })
     company?: string;
+
+    @Field(() => Number, { nullable: true })
+    pageLimit?: number;
 }
 
 @Resolver()

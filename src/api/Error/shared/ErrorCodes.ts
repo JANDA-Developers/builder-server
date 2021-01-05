@@ -19,6 +19,7 @@ export type VerificationProcessErrorCodes =
 export type UserSignInErrorCodes = "INVALID_EMAIL_OR_PASSWORD";
 
 export type UserErrorCode =
+    | "LIMIT_BLOCKED"
     | "UNDERDEVELOPMENT"
     | "INVALID_PARAMS"
     | "CANNOT_FIND_DATA"
