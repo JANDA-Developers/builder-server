@@ -5,7 +5,7 @@ import logger from "morgan";
 import { ApolloServer } from "apollo-server-express";
 import express, { Express } from "express";
 import { createSchema } from "./utils/createSchema";
-import UploadRouter from "../src/api/Upload/router";
+import UploadRouter from "./api/Upload/router";
 import { createCollections } from "./utils/createCollections";
 import { UserModel } from "./models/User/User.model";
 import { authenticateJwt } from "./middlewares/passport";
