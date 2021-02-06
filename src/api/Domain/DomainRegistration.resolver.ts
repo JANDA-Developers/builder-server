@@ -1,10 +1,12 @@
 import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
 import { Context } from "../../types/types";
 import { Lambda } from "aws-sdk";
+import { ObjectId } from "mongodb";
 import { DomainRegistrationType } from "./shared/DomainRetistration.type";
 import { GenerateResponse } from "../../helpers/BaseResponse.type";
 import { UserError } from "../Error/shared/Error.type";
 import { DomainOperationOutput } from "./shared/DomainOperationOutput.type";
+import { HostedZoneCreate } from "../../utils/domain/recordSetFunctions";
 
 const DomainRegistrationResponse = GenerateResponse(
     DomainOperationOutput,
@@ -46,6 +48,16 @@ export class DomainRegistrationResolver {
             console.log(result);
             if (!result.ok) {
                 throw result.error;
+            } else {
+                const callerReference = new ObjectId();
+                const hostedZoneCreateResult = await HostedZoneCreate({
+                    callerReference: callerReference.toHexString(),
+                    domainName: input.DomainName,
+                });
+
+                console.log(hostedZoneCreateResult);
+
+                // TODO: HostedZoneId User에게 저장!
             }
             response.setData(result.data);
         } catch (error) {
