@@ -46,7 +46,7 @@ export class ContactInfo implements AWScontactDetail {
     /**
      * Second line of contact's address, if any.
      */
-    @Field(() => String)
+    @Field(() => String, { nullable: true })
     AddressLine2?: AddressLine;
     /**
      * The city of the contact's address.
@@ -56,7 +56,7 @@ export class ContactInfo implements AWScontactDetail {
     /**
      * The state or province of the contact's city.
      */
-    @Field(() => String)
+    @Field(() => String, { nullable: true })
     State?: State;
     /**
      * Code for the country of the contact's address.
@@ -81,12 +81,12 @@ export class ContactInfo implements AWScontactDetail {
     /**
      * Fax number of the contact. Constraints: Phone number must be specified in the format "+[country dialing code].[number including any area code]". For example, a US phone number might appear as "+1.1234567890".
      */
-    @Field(() => String)
+    @Field(() => String, { nullable: true })
     Fax?: ContactNumber;
     /**
      * A list of name-value pairs for parameters required by certain top-level domains.
      */
-    @Field(() => [ExtraParam])
+    @Field(() => [ExtraParam], { nullable: true })
     ExtraParams?: ExtraParamList;
 }
 
