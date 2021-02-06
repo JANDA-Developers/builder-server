@@ -1,18 +1,13 @@
-import { Resolver, Mutation, Arg, Field, Ctx, ObjectType } from "type-graphql";
+import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
 import { Context } from "../../types/types";
 import { Lambda } from "aws-sdk";
 import { DomainRegistrationType } from "./shared/DomainRetistration.type";
 import { GenerateResponse } from "../../helpers/BaseResponse.type";
 import { UserError } from "../Error/shared/Error.type";
-
-@ObjectType()
-export class DomainRegistrationOutput {
-    @Field(() => String, { nullable: true })
-    OperationId: string;
-}
+import { DomainOperationOutput } from "./shared/DomainOperationOutput.type";
 
 const DomainRegistrationResponse = GenerateResponse(
-    DomainRegistrationOutput,
+    DomainOperationOutput,
     "DomainRegistration"
 );
 type DomainRegistrationResponse = InstanceType<
