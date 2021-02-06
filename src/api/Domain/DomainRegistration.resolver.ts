@@ -48,14 +48,13 @@ export class DomainRegistrationResolver {
             const result = JSON.parse(
                 (await DomainRegistrationOrError(input)) as string
             );
-            if (!result.OperationId) {
-                throw result;
+            console.log(result);
+            if (!result.ok) {
+                throw result.error;
             }
-            response.setData(result);
+            response.setData(result.data);
         } catch (error) {
-            response.setError(
-                new UserError(error.errorMessage, error.errorType)
-            );
+            response.setError(new UserError(error.message, error.code));
         }
         return response;
     }
