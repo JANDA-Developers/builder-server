@@ -2,18 +2,22 @@ import { Resolver, Mutation, Arg, Field, Ctx, ObjectType } from "type-graphql";
 import { Context } from "../../types/types";
 import { Lambda } from "aws-sdk";
 import { DomainRegistrationType } from "./shared/DomainRetistration.type";
+import { GenerateResponse } from "../../helpers/BaseResponse.type";
+import { UserError } from "../Error/shared/Error.type";
 
 @ObjectType()
 export class DomainRegistrationOutput {
-    @Field(() => Boolean)
-    ok: boolean;
-
-    @Field(() => String, { nullable: true })
-    error: string;
-
     @Field(() => String, { nullable: true })
     OperationId: string;
 }
+
+const DomainRegistrationResponse = GenerateResponse(
+    DomainRegistrationOutput,
+    "DomainRegistration"
+);
+type DomainRegistrationResponse = InstanceType<
+    typeof DomainRegistrationResponse
+>;
 
 export const DomainRegistrationOrError = async (
     input: DomainRegistrationType
@@ -32,29 +36,26 @@ export const DomainRegistrationOrError = async (
 
 @Resolver()
 export class DomainRegistrationResolver {
-    @Mutation(() => DomainRegistrationOutput)
+    @Mutation(() => DomainRegistrationResponse)
     async DomainRegistration(
         @Ctx() context: Context,
         @Arg("input", () => DomainRegistrationType)
         input: DomainRegistrationType
-    ): Promise<DomainRegistrationOutput> {
-        const response: DomainRegistrationOutput = Object.assign(
-            new DomainRegistrationOutput(),
-            {
-                ok: true,
-                error: null,
-                OperationId: null,
-            }
-        );
+    ): Promise<DomainRegistrationResponse> {
+        const response: DomainRegistrationResponse = new DomainRegistrationResponse();
         try {
             // TODO: 렛츠고 ㅎㅎ
-            const result = await DomainRegistrationOrError(input);
-            if (typeof result === "string") {
-                response.OperationId = JSON.stringify(result);
+            const result = JSON.parse(
+                (await DomainRegistrationOrError(input)) as string
+            );
+            if (!result.OperationId) {
+                throw result;
             }
+            response.setData(result);
         } catch (error) {
-            response.error = error.message;
-            response.ok = false;
+            response.setError(
+                new UserError(error.errorMessage, error.errorType)
+            );
         }
         return response;
     }
