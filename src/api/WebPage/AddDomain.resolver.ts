@@ -52,7 +52,7 @@ export class AddDomainResolver {
             });
 
             if (!result.ChangeInfo.Status /*실패이면*/) {
-                throw Error("tte");
+                throw Error(JSON.stringify(result));
             }
 
             WebPage.domain = domain;
