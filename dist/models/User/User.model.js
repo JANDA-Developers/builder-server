@@ -15,6 +15,9 @@ const CollectionData_type_1 = require("../../helpers/CollectionData.type");
 const typegoose_1 = require("@typegoose/typegoose");
 const class_validator_1 = require("class-validator");
 const crypto_1 = require("crypto");
+const FilterDecorators_1 = require("../../helpers/decorators/FilterInputGen/FilterDecorators");
+const sortDecorator_1 = require("../../helpers/decorators/sortDecorator");
+const WebPage_model_1 = require("../WebPage/WebPage.model");
 var UserRole;
 (function (UserRole) {
     UserRole[UserRole["ADMIN"] = 0] = "ADMIN";
@@ -22,6 +25,9 @@ var UserRole;
     UserRole[UserRole["UNCONFIRMED"] = 2] = "UNCONFIRMED";
 })(UserRole = exports.UserRole || (exports.UserRole = {}));
 let User = class User extends CollectionData_type_1.CollectionDataInterface {
+    async webpages() {
+        return WebPage_model_1.WebPageModel.find({ owner: this._id });
+    }
     hashPassword() {
         this.password = this.hash(this.password);
     }
@@ -35,12 +41,15 @@ let User = class User extends CollectionData_type_1.CollectionDataInterface {
 __decorate([
     type_graphql_1.Field({ nullable: true }),
     typegoose_1.prop(),
+    sortDecorator_1.Sorting(),
+    FilterDecorators_1.ValueFilter(["eq", "in", "contains"]),
     __metadata("design:type", String)
 ], User.prototype, "name", void 0);
 __decorate([
     type_graphql_1.Field(),
     typegoose_1.prop(),
     class_validator_1.IsEmail(),
+    FilterDecorators_1.ValueFilter(["eq", "in", "contains"]),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
@@ -48,6 +57,17 @@ __decorate([
     type_graphql_1.Field(() => Boolean),
     __metadata("design:type", Boolean)
 ], User.prototype, "isVerified", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    typegoose_1.prop({ default: 3 }),
+    __metadata("design:type", Number)
+], User.prototype, "pageLimit", void 0);
+__decorate([
+    type_graphql_1.Field(() => [WebPage_model_1.WebPage], { nullable: true }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], User.prototype, "webpages", null);
 __decorate([
     type_graphql_1.Field(),
     typegoose_1.prop(),
@@ -59,10 +79,6 @@ __decorate([
     typegoose_1.prop({ default: UserRole.UNCONFIRMED }),
     __metadata("design:type", Number)
 ], User.prototype, "role", void 0);
-__decorate([
-    typegoose_1.prop({ default: [] }),
-    __metadata("design:type", Array)
-], User.prototype, "studentIds", void 0);
 __decorate([
     typegoose_1.prop(),
     __metadata("design:type", String)

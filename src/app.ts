@@ -9,6 +9,9 @@ import UploadRouter from "./api/Upload/router";
 import { createCollections } from "./utils/createCollections";
 import { UserModel } from "./models/User/User.model";
 import { authenticateJwt } from "./middlewares/passport";
+// @ts-ignore
+import { version } from "../package.json";
+
 class App {
     public server: ApolloServer;
     public app: Express;
@@ -55,6 +58,9 @@ class App {
     }
 
     private middlewares = (): void => {
+        this.app.use((req, res) => {
+            res.set("version", version);
+        });
         this.app.use(authenticateJwt);
         this.app.use("/", UploadRouter);
         this.app.use(

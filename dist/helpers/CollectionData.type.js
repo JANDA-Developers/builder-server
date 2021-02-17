@@ -20,9 +20,6 @@ let CollectionDataInterface = class CollectionDataInterface extends defaultClass
         if (args) {
             for (const key in args) {
                 const element = args[key];
-                console.log(key);
-                console.log(args[key]);
-                console.log(this[key]);
                 this[key] = element;
             }
         }

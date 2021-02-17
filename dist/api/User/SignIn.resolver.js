@@ -17,7 +17,21 @@ const type_graphql_1 = require("type-graphql");
 const BaseResponse_type_1 = require("../../helpers/BaseResponse.type");
 const User_model_1 = require("../../models/User/User.model");
 const Error_type_1 = require("../../api/Error/shared/Error.type");
-const SignInResponse = BaseResponse_type_1.GenerateResponse(User_model_1.User, "SignIn");
+const generatorToken_1 = require("../../utils/generatorToken");
+let SignIn = class SignIn {
+    constructor(token) {
+        this.token = token;
+    }
+};
+__decorate([
+    type_graphql_1.Field(),
+    __metadata("design:type", String)
+], SignIn.prototype, "token", void 0);
+SignIn = __decorate([
+    type_graphql_1.ObjectType(),
+    __metadata("design:paramtypes", [String])
+], SignIn);
+const SignInResponse = BaseResponse_type_1.GenerateResponse(SignIn, "SignIn");
 let SignInArgs = class SignInArgs {
 };
 __decorate([
@@ -43,13 +57,8 @@ let SignInResolver = class SignInResolver {
             if (!user || !user.comparePassword(password)) {
                 throw new Error_type_1.UserError("Email 또는 Password를 확인해주세요", "INVALID_EMAIL_OR_PASSWORD");
             }
-            context.req.session["seller"] = user._id.toHexString();
-            context.req.session.save((err) => {
-                if (err) {
-                    console.log(err);
-                }
-            });
-            response.setData(user);
+            const token = new SignIn(generatorToken_1.generateToken(user.email));
+            response.setData(token);
         }
         catch (error) {
             response.setError(error);

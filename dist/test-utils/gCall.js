@@ -18,9 +18,6 @@ exports.gCall = async ({ source, variableValues, userId }) => {
                 headers: {
                     "x-forwarded-for": "127.0.0.1",
                 },
-                session: {
-                    seller: userId,
-                },
             },
             user: await User_model_1.UserModel.findById(userId),
             res: {

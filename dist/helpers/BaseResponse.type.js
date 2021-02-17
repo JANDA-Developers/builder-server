@@ -9,9 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PlainResponse = exports.GenerateArrayReturnResponse = exports.GenerateResponse = void 0;
+exports.PlainResponse = exports.GenerateArrayReturnResponse = exports.GenerateResponse = exports.GenerateFindOneResponse = void 0;
 const type_graphql_1 = require("type-graphql");
 const Error_type_1 = require("../api/Error/shared/Error.type");
+exports.GenerateFindOneResponse = (tClass, name) => {
+    let BaseResponseClass = class BaseResponseClass extends PlainResponse {
+        constructor(ok) {
+            super(ok);
+        }
+        setData(data) {
+            this.data = data;
+        }
+    };
+    __decorate([
+        type_graphql_1.Field(() => tClass, { nullable: true }),
+        __metadata("design:type", Object)
+    ], BaseResponseClass.prototype, "data", void 0);
+    BaseResponseClass = __decorate([
+        type_graphql_1.ObjectType(`${name || tClass.name}Response`),
+        __metadata("design:paramtypes", [Boolean])
+    ], BaseResponseClass);
+    return BaseResponseClass;
+};
 exports.GenerateResponse = (tClass, name) => {
     let BaseResponseClass = class BaseResponseClass extends PlainResponse {
         constructor(ok) {

@@ -1,6 +1,6 @@
 {
     "name": "janda-timespace-api",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "main": "index.js",
     "author": {
         "email": "codemaker@stayjanda.com",

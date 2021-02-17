@@ -26,6 +26,5 @@ exports.verificationCreate = async (input) => {
  */
 exports.sendSmsVerificationCode = async (verification) => {
     await errorHandling_1.validateClass(verification);
-    // TODO: 여기서부터 시작!! Send SMS 함수 timespace쪽에서 가져와서 사용하긔
 };
 //# sourceMappingURL=Verification.function.js.map

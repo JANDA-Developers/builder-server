@@ -18,12 +18,10 @@ const FileInfo_type_1 = require("../../api/Commons/shared/FileInfo.type");
 const CollectionData_type_1 = require("../../helpers/CollectionData.type");
 const mongoSchemaConstants_1 = require("../../helpers/mongoSchemaConstants");
 const objectUtils_1 = require("../../utils/objectUtils");
-const s3Functions_1 = require("../../utils/s3Functions");
 const User_model_1 = require("../../models/User/User.model");
 let File = class File extends CollectionData_type_1.CollectionDataInterface {
     constructor() {
         super();
-        this.fileType = () => s3Functions_1.getFileType(this.extension);
     }
     get tags() {
         return objectUtils_1.mapToArr(this.mTag);
@@ -49,7 +47,7 @@ __decorate([
 ], File.prototype, "extension", void 0);
 __decorate([
     type_graphql_1.Field(() => String),
-    __metadata("design:type", Object)
+    __metadata("design:type", String)
 ], File.prototype, "fileType", void 0);
 __decorate([
     type_graphql_1.Field(() => String),

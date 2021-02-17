@@ -19,12 +19,6 @@ let SignOutResolver = class SignOutResolver {
     async SignOut(context) {
         const response = new BaseResponse_type_1.PlainResponse();
         try {
-            context.req.session.seller = undefined;
-            context.req.session.save((err) => {
-                if (err) {
-                    console.log(err);
-                }
-            });
             return response;
         }
         catch (error) {

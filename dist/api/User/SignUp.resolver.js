@@ -58,7 +58,6 @@ let SignUpResolver = class SignUpResolver {
             await errorHandling_1.validateClass(user);
             const isDuplidated = await User_model_1.UserModel.findOne({
                 email: input.email,
-                role: User_model_1.UserRole.UNCONFIRMED,
             }, { _id: 1 });
             if (isDuplidated) {
                 throw new Error_type_1.UserError("Already existing user infomation", "ALREADY_SIGNED_UP");

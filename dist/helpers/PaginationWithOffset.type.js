@@ -66,9 +66,10 @@ exports.OffsetPaginatedData = (TItemClass) => {
                 model
                     .find(filterQuery)
                     .find(query)
-                    .populate(populations)
-                    .skip(pageIndex * pageItemCount)
                     .sort(toMongoSort(sort))
+                    .skip(pageIndex * pageItemCount)
+                    .limit(pageItemCount)
+                    .populate(populations)
                     .exec(),
             ]);
             this.items = items;

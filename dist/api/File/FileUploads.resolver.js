@@ -18,7 +18,6 @@ const BaseResponse_type_1 = require("../../helpers/BaseResponse.type");
 const File_type_1 = require("../../models/File/File.type");
 const typegoose_1 = require("@typegoose/typegoose");
 const FileInfo_type_1 = require("../../api/Commons/shared/FileInfo.type");
-const User_model_1 = require("../../models/User/User.model");
 const errorHandling_1 = require("../../helpers/errorHandling");
 const apollo_server_express_1 = require("apollo-server-express");
 const FileUploadsResponse = BaseResponse_type_1.GenerateArrayReturnResponse(File_type_1.File, "FileUploads");
@@ -53,7 +52,6 @@ let FileUploadsResolver = class FileUploadsResolver {
     }
 };
 __decorate([
-    type_graphql_1.Authorized(User_model_1.UserRole.MEMBER),
     type_graphql_1.Mutation(() => FileUploadsResponse),
     __param(0, type_graphql_1.Ctx()),
     __param(1, type_graphql_1.Arg("files", () => [FileInfo_type_1.FileInput])),

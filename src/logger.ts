@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import { createLogger } from "winston";
-import AWS from "aws-sdk";
 import WinstonCloudWatch from "winston-cloudwatch";
 
 export const loggerCloudWatch = createLogger({
@@ -13,7 +12,6 @@ export const loggerCloudWatch = createLogger({
                     DateNtime[0]
                 } ${DateNtime[1].substr(0, 2)}h00m`;
             },
-            cloudWatchLogs: new AWS.CloudWatchLogs(),
         }),
     ],
 });

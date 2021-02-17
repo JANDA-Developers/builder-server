@@ -1,0 +1,1 @@
+{"version":3,"file":"isDomain.js","sourceRoot":"","sources":["../../src/utils/isDomain.ts"],"names":[],"mappings":";;;AAAa,QAAA,QAAQ,GAAG,CAAC,MAAc,EAAW,EAAE;IAChD,MAAM,SAAS,GAAG,IAAI,MAAM,CACxB,qBAAqB,GAAG,kBAAkB,GAAG,gBAAgB,CAChE,CAAC;IAEF,OAAO,SAAS,CAAC,IAAI,CAAC,MAAM,CAAC,CAAC;AAClC,CAAC,CAAC"}
