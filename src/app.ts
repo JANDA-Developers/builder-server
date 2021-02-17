@@ -58,8 +58,9 @@ class App {
     }
 
     private middlewares = (): void => {
-        this.app.use((req, res) => {
+        this.app.use((req, res, next) => {
             res.set("version", version);
+            next();
         });
         this.app.use(authenticateJwt);
         this.app.use("/", UploadRouter);

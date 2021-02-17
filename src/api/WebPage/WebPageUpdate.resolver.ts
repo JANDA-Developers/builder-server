@@ -27,6 +27,9 @@ type WebPageUpdateResponse = InstanceType<typeof WebPageUpdateResponse>;
 @InputType()
 export class WebPageUpdateInput {
     @Field({ nullable: true })
+    public domain?: string;
+
+    @Field({ nullable: true })
     public description: string;
 
     @Field({ nullable: true })

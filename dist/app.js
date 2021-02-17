@@ -20,8 +20,9 @@ class App {
     constructor() {
         this.gqlEndPoint = process.env.GRAPHQL_ENDPOINT || "/graphql";
         this.middlewares = () => {
-            this.app.use((req, res) => {
+            this.app.use((req, res, next) => {
                 res.set("version", package_json_1.version);
+                next();
             });
             this.app.use(passport_1.authenticateJwt);
             this.app.use("/", router_1.default);

@@ -27,6 +27,10 @@ let WebPageUpdateInput = class WebPageUpdateInput {
 __decorate([
     type_graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
+], WebPageUpdateInput.prototype, "domain", void 0);
+__decorate([
+    type_graphql_1.Field({ nullable: true }),
+    __metadata("design:type", String)
 ], WebPageUpdateInput.prototype, "description", void 0);
 __decorate([
     type_graphql_1.Field({ nullable: true }),
