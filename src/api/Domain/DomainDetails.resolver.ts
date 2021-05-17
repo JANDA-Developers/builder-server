@@ -105,7 +105,7 @@ export class DomainDetailsResolver {
             response.setData(result.data);
         } catch (error) {
             response.ok = false;
-            response.errors.push(new UserError(error.message, error.code));
+            response.error = new UserError(error.message, error.code);
         }
         return response;
     }

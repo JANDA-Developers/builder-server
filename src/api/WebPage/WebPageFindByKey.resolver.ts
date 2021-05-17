@@ -16,6 +16,7 @@ export class WebPageFindByKeyResolver {
         description: "도메인을 넣으면 도메인 으로 검사",
     })
     async WebPageFindByKey(@Arg("key") key: string) {
+        console.log("request arrived");
         const response = new WebPageFindByKeyResponse();
         const session = await mongoose.startSession();
         session.startTransaction();
@@ -36,7 +37,9 @@ export class WebPageFindByKeyResolver {
                 await session.commitTransaction();
             }
         } catch (e) {
+            console.log(e);
             await session.abortTransaction();
+
             response.setError({
                 code: "",
                 details: [],
@@ -45,6 +48,7 @@ export class WebPageFindByKeyResolver {
         } finally {
             session.endSession();
         }
+        console.log({ response });
         return response;
     }
 }

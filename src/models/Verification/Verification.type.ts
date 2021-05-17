@@ -64,6 +64,10 @@ export class Verification extends CollectionDataInterface {
     @Field(() => Boolean)
     isVerified: boolean;
 
+    @prop({ default: false })
+    @Field(() => Boolean)
+    isVerifiedJANDA: boolean;
+
     @prop()
     @Field(() => VerificationEvent, {
         description: `어떤 액션을 위해 인증을 하는 것인지 표시 

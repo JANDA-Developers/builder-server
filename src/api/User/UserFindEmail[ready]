@@ -1,0 +1,110 @@
+import { Resolver, Mutation, Ctx } from "type-graphql";
+import { GenerateResponse } from "../../helpers/BaseResponse.type";
+import { mongoose } from "@typegoose/typegoose";
+import { Context } from "../../types/types";
+import { getVerificationFromSession } from "../Verification/shared/Verification.function";
+import { UserError } from "../Error/shared/Error.type";
+import { errorGenForUnexist } from "../../helpers/errorHandling";
+
+const BusinessUserFindEmailResponse = GenerateResponse(
+    BusinessUser,
+    "BusinessUserFindEmail"
+);
+type BusinessUserFindEmailResponse = InstanceType<
+    typeof BusinessUserFindEmailResponse
+>;
+
+const CustomerFindEmailResponse = GenerateResponse(
+    Customer,
+    "CustomerFindEmail"
+);
+type CustomerFindEmailResponse = InstanceType<typeof CustomerFindEmailResponse>;
+
+@Resolver()
+export class UserFindEmailResolver {
+    @Mutation(() => BusinessUserFindEmailResponse)
+    async BusinessUserFindEmail(
+        @Ctx() context: Context
+    ): Promise<BusinessUserFindEmailResponse> {
+        const response = new BusinessUserFindEmailResponse();
+        const session = await mongoose.startSession();
+        try {
+            const verification = await getVerificationFromSession(
+                context.req.session
+            );
+            await session.withTransaction(async () => {
+                if (!verification) {
+                    throw new UserError("인증 정보 에러", "VERIFICATION_FAIL");
+                }
+                const user = await BusinessUserModel.findOne({
+                    $or: [
+                        {
+                            email: verification.payload,
+                        },
+                        {
+                            phoneNumber: verification.payload,
+                        },
+                    ],
+                });
+
+                if (!user) {
+                    throw errorGenForUnexist("User");
+                }
+
+                await user.verify([verification], session);
+                response.setData(user);
+            });
+        } catch (error) {
+            response.setError(error);
+        } finally {
+            session.endSession();
+        }
+        return response;
+    }
+
+    @Mutation(() => CustomerFindEmailResponse)
+    async CustomerFindEmail(
+        @Ctx() context: Context
+    ): Promise<CustomerFindEmailResponse> {
+        const response = new CustomerFindEmailResponse();
+        const session = await mongoose.startSession();
+        try {
+            const verification = await getVerificationFromSession(
+                context.req.session
+            );
+            await session.withTransaction(async () => {
+                if (!verification) {
+                    throw new UserError("인증 정보 에러", "VERIFICATION_FAIL");
+                }
+                const user = await CustomerModel.findOne({
+                    $and: [
+                        {
+                            $or: [
+                                {
+                                    email: verification.payload,
+                                },
+                                {
+                                    phoneNumber: verification.payload,
+                                },
+                            ],
+                        },
+                        {
+                            _storeId: context.selectedStoreId,
+                        },
+                    ],
+                });
+                if (!user) {
+                    throw errorGenForUnexist("User");
+                }
+
+                await user.verify([verification], session);
+                response.setData(user);
+            });
+        } catch (error) {
+            response.setError(error);
+        } finally {
+            session.endSession();
+        }
+        return response;
+    }
+}

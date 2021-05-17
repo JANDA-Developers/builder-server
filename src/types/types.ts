@@ -1,3 +1,5 @@
+import { DocumentType } from "@typegoose/typegoose";
+import { ClientSession } from "mongoose";
 import { User } from "../models/User/User.model";
 
 export type UserDecodeByJwt = {
@@ -16,7 +18,8 @@ export type Minute = number;
 export type Seconds = number;
 
 export type Context = {
-    user?: User;
+    session?: ClientSession;
+    user?: DocumentType<User>;
     res: any;
     req: any;
 };

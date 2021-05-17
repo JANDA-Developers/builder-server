@@ -2,7 +2,7 @@ import aws, { AWSError, Route53 } from "aws-sdk";
 
 const route53 = new aws.Route53();
 
-export const createSubDomain = async (
+export const createJandaSubDomain = async (
     domain: string,
     callBack: (
         err: AWSError,

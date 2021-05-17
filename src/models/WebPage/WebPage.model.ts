@@ -47,6 +47,11 @@ export class WebPage extends CollectionDataInterface {
     domain: string;
 
     @prop()
+    @ValueFilter(["in", "not_in", "contains", "eq"], () => String)
+    @Field({ nullable: true })
+    domainId?: ObjectId;
+
+    @prop()
     @Field(() => [String], { nullable: true })
     @ValueFilter(["in", "not_in", "contains", "eq"], () => String)
     keyWards: string[];

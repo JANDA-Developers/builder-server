@@ -25,6 +25,7 @@ export const errorGenForUnexist = (
         | "WebPage"
         | "ProductGroup"
         | "Item"
+        | "Domain"
         | "Category"
 ) =>
     new ApolloError(

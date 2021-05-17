@@ -59,7 +59,7 @@ class App {
 
     private middlewares = (): void => {
         this.app.use((req, res, next) => {
-            res.set("version", version);
+            res.set("version", version || "inline-version-1.0.0");
             next();
         });
         this.app.use(authenticateJwt);

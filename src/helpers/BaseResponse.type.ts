@@ -58,23 +58,26 @@ export const GenerateArrayReturnResponse = <T>(
     return BaseResponseClass;
 };
 
+export interface PlainResponse {
+    setData(args: any): void;
+}
 @ObjectType("Response")
 export class PlainResponse {
     constructor(ok?: boolean) {
         this.ok = ok === false ? false : true;
-        this.errors = [];
     }
+
     @Field(() => Boolean)
     ok: boolean;
 
-    @Field(() => [UserError], { nullable: true })
-    errors: UserError[];
+    @Field(() => UserError, { nullable: true })
+    error?: UserError;
 
-    setError(error: UserError, ok = false) {
+    setError(error: UserError, ok?: boolean) {
         if (!(error instanceof UserError)) {
             throw error;
         }
-        this.errors.push(error);
-        this.ok = ok;
+        this.error = error;
+        this.ok = ok != null ? ok : false;
     }
 }

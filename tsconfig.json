@@ -21,7 +21,7 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
     },
-    "include": ["./src/**/*"],
+    "include": ["./src/**/*", "../../jungle-web/utils/inBrowser.ts"],
     "exclude": [
         "node_modules",
         "jest",

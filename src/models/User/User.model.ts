@@ -6,6 +6,7 @@ import { createHash } from "crypto";
 import { ValueFilter } from "../../helpers/decorators/FilterInputGen/FilterDecorators";
 import { Sorting } from "../../helpers/decorators/sortDecorator";
 import { WebPage, WebPageModel } from "../WebPage/WebPage.model";
+import { compare } from "bcryptjs";
 
 export enum UserRole {
     ADMIN,
@@ -35,9 +36,13 @@ export class User extends CollectionDataInterface {
     @ValueFilter(["eq", "in", "contains"])
     email: string;
 
-    @prop({ default: () => false })
+    @prop({ default: false })
     @Field(() => Boolean)
     isVerified: boolean;
+
+    @prop({ default: () => false })
+    @Field(() => Boolean)
+    isVerifiAsAdmin: boolean;
 
     @Field()
     @prop({ default: 3 })
@@ -64,8 +69,8 @@ export class User extends CollectionDataInterface {
         this.password = this.hash(this.password);
     }
 
-    comparePassword(password: string): boolean {
-        return this.password === this.hash(password);
+    async comparePassword(password: string): Promise<boolean> {
+        return compare(password, this.password);
     }
 
     private hash(password: string) {
